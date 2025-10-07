@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis
+    container_name: redis-server
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - redis-net
+
+  redisinsight:
+    image: redis/redisinsight
+    container_name: redis-gui
+    ports:
+      - "8001:5540"
+    depends_on:
+      - redis
+    networks:
+      - redis-net
+
+volumes:
+  redis_data:
+
+networks:
+  redis-net:
+    driver: bridge

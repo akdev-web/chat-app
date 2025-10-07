@@ -1,0 +1,117 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+:root {
+    ---color-body-bg: #effffc;
+    ---color-text: black;
+    ---color-text-light: #313131;
+    ---color-text-xlight: #4b4b4b;
+    ---color-bg: white;
+    ---color-border: #d1d5dc;
+    ---color-input-border: darkgray;
+    ---color-input-b-focus: black;
+    ---color-input-bg-: white;
+    ---color-placeholder: grey;
+    ---color-link: #5c5c5c;
+    ---colo-link-hover: #3f3f3f;
+    ---color-nav-bg: white;
+    ---color-shadow: lightgray;
+    --nav-head: #191919;
+    --nav-text: whitesmoke;
+    --nav-hover: rgba(0, 0, 0, 0.05);
+    --nav-active: rgba(0, 0, 0, 0.15);
+
+    /* msg-variables-alert */
+    --color-success-bg: #e6ffed;
+    --color-success-text: #107c41;
+
+    --color-error-bg: #ffeaea;
+    --color-error-text: #d32f2f;
+
+    /* quiz options border variables  */
+    --border-default: #d1d5db;
+    /* gray-300 */
+    --border-hover: #3b82f6;
+    /* blue-500 */
+    --border-selected: #2563eb;
+    /* blue-600 */
+    --border-correct: #10b981;
+    /* green-500 */
+    --border-incorrect: #ef4444;
+    /* red-500 */
+    --border-disabled: #9ca3af;
+    /* gray-400 */
+
+    /* chat variables */
+    --chat-bg: #f9f9f9;
+    --msg-sender: rgb(172, 200, 117);
+    --msg-receiver: #aeb4bd;
+    --msg-system: #d97706;
+    --chat-text: #111;
+}
+
+.dark {
+    ---color-body-bg: #1d1d1d;
+    ---color-text: whitesmoke;
+    ---color-text-light: lightgray;
+    ---color-text-xlight: darkgray;
+    ---color-bg: #161616;
+    ---color-border: #181e21;
+    ---color-input-border: #5c5c5c;
+    ---color-input-bg: transparent;
+    ---color-placeholder: darkgray;
+    ---color-link: darkgray;
+    ---color-link-hover: lightgray;
+    ---color-nav-bg: #000;
+    ---color-shadow: black;
+
+    --nav-head: #3c3c3c;
+    --nav-hover: rgba(255, 255, 255, 0.1);
+    --nav-active: rgba(255, 255, 255, 0.2);
+
+    /* aler-msg-variables */
+    --color-success-bg: #1b3c2f;
+    --color-success-text: #b9fbc0;
+
+    --color-error-bg: #3d1f1f;
+    --color-error-text: #ff8a80;
+
+    /* quiz options border varaibles */
+    --border-default: #374151;
+    /* gray-700 */
+    --border-hover: #60a5fa;
+    /* blue-400 */
+    --border-selected: #3b82f6;
+    /* blue-500 */
+    --border-correct: #34d399;
+    /* green-400 */
+    --border-incorrect: #f87171;
+    /* red-400 */
+    --border-disabled: #6b7280;
+    /* gray-500 */
+
+    /* chat variables */
+    --chat-bg: #121212;
+    --chat-text: #e6e6e6;
+    --msg-sender: #597d11;
+    --msg-receiver: #374151;
+    --msg-system: #d97706;
+
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        /* Invert icon color in dark mode */
+        cursor: pointer;
+    }
+}
+
+
+@keyframes heartbeat {
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 0px rgba(0,0,0,0); }
+  50% { opacity: 1; box-shadow: 0 0 8px rgba(0,0,0,0.05); }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
