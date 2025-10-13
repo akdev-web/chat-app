@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import DateStringtoLocalTime from '../util/DateStringtoLocalTime';
 import ChatImage from './ChatImage';
+import ImageGrid from './ImageGrid';
 
 const RecievedMessage = ({msg}) => {
     return (
@@ -9,16 +10,8 @@ const RecievedMessage = ({msg}) => {
                 }`}
         >
             {
-                msg.images &&
-                msg.images.map((img,i) => (
-                    <div key={i} className='mb-2.5 p-3 rounded-2xl bg-[var(--msg-receiver)] text-right shadow'>
-                        {img.file && 
-                        <>
-                            <ChatImage file={img} />
-                        </>}
-                        <p className='text-sm text-[var(---color-text-xlight)]'>{img.filename}</p>
-                    </div>
-                ))
+                msg.images && msg.images.length > 0 &&
+                <ImageGrid images={msg.images}/>
             }
             {
                 msg.prog &&

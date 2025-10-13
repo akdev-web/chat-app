@@ -4,17 +4,18 @@ import DateStringtoLocalTime from '../util/DateStringtoLocalTime';
 import ChatImage from './ChatImage';
 import { motion } from 'framer-motion';
 import { RotateCcw, Trash2 } from 'lucide-react';
+import ImageGrid from './ImageGrid';
 
-const SentMessage = ({ msg, isPersonal, onDelete, onRetry }) => {
+const SentMessage = ({ msg, isPersonal, onDelete, onDeleteFile, onRetry }) => {
     const [showDelete, setShowDelete] = useState({ dragged: false, clicked: false })
-
+    const [viewerOpen, setViewerOpen] = useState(false);
     return (
         <div
             className={`relative`}
         >
             <motion.div
                 className='flex items-center relative'
-                drag={msg.state === 'deleted' ? false : 'x'} dragConstraints={{ left: -60, right: 0 }}
+                drag={msg.state === 'deleted' || viewerOpen ? false : 'x'} dragConstraints={{ left: -60, right: 0 }}
                 dragElastic={0.2}
                 onDragEnd={(e, info) => {
                     if (info.offset.x < 5) setShowDelete(prev => ({ ...prev, clicked: !prev.clicked }))
@@ -28,18 +29,8 @@ const SentMessage = ({ msg, isPersonal, onDelete, onRetry }) => {
                     
                 {
                     (msg.images && msg.images.length > 0) &&
-                    msg.images.map((img, i) => (
-                        <div key={i} className='mb-2.5 p-3 rounded-2xl bg-[var(--msg-sender)] text-right  rounded-tr-none shadow'>
-                            {img.file &&
-                                <ChatImage file={img} />
-                            }
-                            {
-                                img.preview &&
-                                <img src={img.preview} alt={img.filename}  />
-                            }
-                            <p className='text-sm text-[var(---color-text-xlight)]'>{img.filename}</p>
-                        </div>
-                    ))
+                    <ImageGrid viewerOpen={viewerOpen} setViewerOpen={setViewerOpen} 
+                        onDeleteFile={(file)=>onDeleteFile && onDeleteFile(msg.msgId,file)} images={msg.images}/>
                 }
                 {
                     msg.prog &&
@@ -86,7 +77,7 @@ const SentMessage = ({ msg, isPersonal, onDelete, onRetry }) => {
                 {(showDelete.dragged || showDelete.clicked) && (
                     <button
                         disabled={msg.state === 'deleted'}
-                        onClick={() => msg.state !== 'deleted' && onDelete(msg.msgId) }
+                        onClick={() => onDelete && onDelete(msg.msgId) }
                         className={` ${ showDelete.clicked ? 'top-[80px] right-[20px]' : 
                             showDelete.dragged && 'top-1/2 -right-12 -translate-y-1/2'}
                             transition-transform duration-200 hover:scale-75

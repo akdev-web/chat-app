@@ -20,6 +20,7 @@ import { errorHandler } from './errorLogger.js';
 import handleDeleteMessage from './controllers/chat/handleDeletemessage.js';
 import validateRoom, { validateRoomAndMember } from './Middlewares/chat/validateRoom.js';
 import handleJoinNewChat from './controllers/chat/handleJoinNewChat.js';
+import handleDeleteMessageFile from './controllers/chat/handleDeleteMessageFile.js';
 
 env.config();
 
@@ -128,6 +129,8 @@ io.on('connection',async(socket)=>{
     handleDeliveredMessage(socket);
 
     handleDeleteMessage(socket);
+
+    handleDeleteMessageFile(socket);
 
     socket.on('disconnect', () =>{
         console.log('client disconnected',socket.data.user.username);

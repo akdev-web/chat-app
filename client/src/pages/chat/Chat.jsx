@@ -19,6 +19,7 @@ import useUpload from '../../components/hooks/UploadHook.js';
 import { useGChatContext } from '../../context/G_ChatContext.jsx';
 import { usePendingMessages } from '../../components/hooks/pendingMsgHook.js';
 import { TimeOutManager } from '../../components/util/TimeoutManager.js';
+import { removeImageCache } from '../../components/util/ChatImageCache.js';
 
 
 
@@ -78,7 +79,7 @@ const Chat = () => {
       return prev;
     })
   }
-  const { upl_Response, upload, resetUpload } = useUpload({ progressUpdater: updtImagesProg });
+  const { upload, resetUpload } = useUpload({ progressUpdater: updtImagesProg });
 
   console.log('selectedchat :', selectedChat)
   // console.log('active :',activeUsers)
@@ -171,6 +172,12 @@ const Chat = () => {
   const deleteMessage = (msg) => {
     console.log(msg, 'requested to delete');
     socket.current.emit('delete-msg', msg);
+  }
+
+  const deleteMessageFile = (msg,file) => {
+    console.log(file, 'requested to delete file');
+    socket.current.emit('delete-msg-file', {msg,file});
+    removeImageCache(file);
   }
 
 
@@ -556,6 +563,7 @@ const Chat = () => {
                         chat={selectedChat}
                         onRetry={handleSendMessage}
                         onDelete={deleteMessage}
+                        onDeleteFile={deleteMessageFile}
                       />
                     </div>
                     {selectedChat && <ChatInputV2 onSend={handleSendMessage} />}

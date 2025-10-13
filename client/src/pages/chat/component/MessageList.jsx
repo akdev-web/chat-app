@@ -3,7 +3,7 @@ import SentMessage from './SentMessage';
 import RecievedMessage from './RecievedMessage';
 import { useEffect,  useRef, useState } from 'react';
 
-const MessageList = ({chat,messages, onDelete,onRetry }) => {
+const MessageList = ({chat,messages, onDelete,onDeleteFile,onRetry }) => {
   const containerRef = useRef(null);
   const bottomRef = useRef(null);
   const messageLenRef = useRef(messages.length);
@@ -40,7 +40,12 @@ const MessageList = ({chat,messages, onDelete,onRetry }) => {
         switch (msg.type) {
           case 'user':
             if(msg.isSender){ 
-              return <SentMessage key={index}  msg={msg} isPersonal={chat.isPersonal} onDelete={onDelete} onRetry={onRetry} />
+              return <SentMessage key={index}  msg={msg} 
+                     isPersonal={chat.isPersonal} 
+                     onDelete={msg.state !== 'deleted' ? onDelete : null} 
+                     onDeleteFile={onDeleteFile}
+                     onRetry={onRetry} 
+              />
             }
             return <RecievedMessage key={index} msg={msg}   />
           case 'system':

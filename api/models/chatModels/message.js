@@ -13,8 +13,9 @@ const MessageSchema = new mongoose.Schema({
   images:[
     { 
       _id:false,
-      file:{type:mongoose.Schema.ObjectId,ref:'chatimages'},
-      filename:{type:String,default:null}
+      file:{type:mongoose.Schema.ObjectId,ref:'ChatImages'},
+      filename:{type:String,default:null},
+      state:{type:String},
     }
   ],
   timestamp: { type: Date, default: Date.now }

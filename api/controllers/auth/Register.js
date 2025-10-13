@@ -18,7 +18,7 @@ export default async function Register(req,res) {
             return res.status(400).json({err:'Email is already registered'});
         } 
         const newUser = {
-            username,
+            username:username.charAt(0).toUpperCase() + username.slice(1).toLowerCase(),
             email,
             password:await hashPassword(password),
             isVerified:false,

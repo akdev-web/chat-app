@@ -9,4 +9,4 @@ const ImageSchema = new mongoose.Schema(
     }
 )
 
-export default mongoose.models.Chatimages || mongoose.model('Chatimages',ImageSchema);
+export default mongoose.models.ChatImages || mongoose.model('ChatImages',ImageSchema);

@@ -53,7 +53,7 @@ const ChatHeader = ({ activeCont, setActiveCont, chat, onBack, deleteChat, isMob
           <UserAvatar profile={chat.user.profile} name={chat.user.name} size={32} className="cursor-pointer" />
           <div className="flex flex-col ">
             <h2 className="text-lg font-semibold truncate">
-              Chatting with {chat.user.name}
+               {chat.user.name}
             </h2>
             <p className="text-sm">{chat.online ? "online" : "offline"}</p>
           </div>
