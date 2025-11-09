@@ -1,15 +1,23 @@
-// redisClient.js
-import { createClient } from 'redis';
+import { Redis } from '@upstash/redis'
 
-const redis = createClient({
-  url: 'redis://localhost:6379' // This connects to your Docker Redis
-});
+// Initialize Redis client with Upstash credentials from environment variables
+const redis = new Redis({
+  url: process.env.UPST_REDIS_REST_URL,  // Upstash Redis URL
+  token: process.env.UPST_REDIS_REST_TOKEN, // Upstash Redis Token
+})
 
-redis.on('error', (err) => console.error('❌ Redis Client Error:', err));
-redis.on('connect',()=> console.log('Connected ot redis server '));
-redis.on('reconnecting',()=> console.log('Redis trying to reconnect '))
+// Function to check connection
+const checkConnection = async () => {
+  try {
+    // Perform a simple Redis command to ensure the connection is working
+    const pong = await redis.ping(); 
+    console.log('Redis Ping Response:', pong);  // Should return 'PONG'
+  } catch (error) {
+    console.error('Error connecting to Redis:', error);
+  }
+}
 
-await redis.connect();
-
+// Check connection immediately after initialization
+checkConnection();
 
 export default redis;
